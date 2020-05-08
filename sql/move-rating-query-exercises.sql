@@ -22,3 +22,8 @@ where (r1.rID = r2.rID) and (r2.ratingDate is null);
 select name, title, stars, ratingDate
 from reviewer join rating using (rID) join movie using (mID)
 order by name, title, stars;
+
+-- q6
+select name, title
+from (rating r1 join rating r2 using (rID)) join reviewer using (rID) join movie using (mID)
+where r1.mID = r2.mID and r1.ratingDate < r2.ratingDate and r1.stars < r2.stars;
