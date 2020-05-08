@@ -40,3 +40,15 @@ select title, (max(stars) - min(stars))
 from movie join rating using (mID)
 group by title
 order by (max(stars) - min(stars)) desc, title;
+                           
+-- q9
+select abs(avg(s1)-avg(s2)) from
+(select avg(stars) as s1
+from rating join movie using (mID)
+where year < 1980
+group by mId),
+(select avg(stars) as s2
+from rating join movie using (mID)
+where year > 1980
+group by mId);
+
