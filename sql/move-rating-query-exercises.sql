@@ -34,3 +34,9 @@ from movie join rating using (mID)
 group by title
 having count(*) > 1
 order by title;
+                                     
+-- q8
+select title, (max(stars) - min(stars))
+from movie join rating using (mID)
+group by title
+order by (max(stars) - min(stars)) desc, title;
