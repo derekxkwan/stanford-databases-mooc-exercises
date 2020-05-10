@@ -41,3 +41,18 @@ select title, avg(stars)
 from rating join movie using (mID)
 group by mID
 order by avg(stars) desc, title;
+
+
+-- q8
+select name
+from reviewer
+where rID in
+(select distinct r1.rID
+from rating r1, rating r2, rating r3
+ where (
+	 (r1.ratingDate <> r2.ratingDate and r2.ratingDate <> r3.ratingDate and r1.ratingDate <> r3.ratingDate)
+ or (r1.ratingDate is null and r2.ratingDate <> r3.ratingDate)
+	 )
+	 and 
+ (r1.rID = r2.rID and r2.rID = r3.rID and r1.rID = r3.rID)
+ )
