@@ -1,0 +1,43 @@
+-- q1
+select distinct name
+from reviewer join rating using (rID) join movie using (mID)
+where title="Gone with the Wind";
+
+-- q2
+select distinct name, title, stars
+from reviewer join rating using (rID) join movie using (mID)
+where name like director
+
+-- q3
+select name as n
+from reviewer
+union all
+select title as n
+from movie
+order by n;
+
+-- q4
+select distinct title
+from movie
+where mID not in 
+(select distinct mID
+ from rating join reviewer using (rID)
+ where name = "Chris Jackson")
+ 
+ 
+ -- q5
+select distinct r1.name, r2.name
+from (rating join reviewer using (rID)) r1, (rating join reviewer using (rID)) r2
+where r1.mID = r2.mID and r1.rID <> r2.rID and r1.name < r2.name
+order by r1.name;	
+
+-- q6
+select distinct name, title, stars
+from reviewer join rating using (rID) join movie using (mID)
+where stars in (select min(stars) from rating);
+
+-- q7
+select title, avg(stars)
+from rating join movie using (mID)
+group by mID
+order by avg(stars) desc, title;
