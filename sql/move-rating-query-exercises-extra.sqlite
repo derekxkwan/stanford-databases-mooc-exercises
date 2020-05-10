@@ -56,3 +56,24 @@ from rating r1, rating r2, rating r3
 	 and 
  (r1.rID = r2.rID and r2.rID = r3.rID and r1.rID = r3.rID)
  )
+ 
+ -- q9 not using count
+select title, director
+from movie
+where title in
+(select distinct m1.title
+ from movie m1, movie m2
+ where (m1.title <> m2.title) and (m1.director = m2.director)
+ )
+ order by director, title
+ 
+-- q9 using count 
+select title, director
+from movie
+where director in
+(select director
+from movie
+group by director
+having count(title) > 1)
+order by director, title
+
