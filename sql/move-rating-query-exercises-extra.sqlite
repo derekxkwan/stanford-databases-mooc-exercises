@@ -77,3 +77,26 @@ group by director
 having count(title) > 1)
 order by director, title
 
+-- q10
+select title, max(a)
+from
+(
+select mID, avg(stars) as a 
+from rating
+group by mID
+) join movie using (mID);
+
+-- q11
+select title, avg(stars)
+from movie join rating using (mID)
+group by mID
+having avg(stars) =
+(select min(a) from
+(
+select avg(stars) as a
+from rating
+group by mID
+));
+
+
+
